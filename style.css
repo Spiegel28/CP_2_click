@@ -1,0 +1,10 @@
+.imgMoon {
+    max-width: 20%; /* You can adjust this value based on your preference */
+    height: auto;
+    display: block;
+    margin: auto;
+  }
+
+body {
+    background-image: url(https://www.polytechnique-insights.com/wp-content/uploads/2022/11/adobestock_402438380-1-scaled.jpeg);
+}

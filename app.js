@@ -39,6 +39,8 @@ let clickUpgrades = [
     if (cheese >= knife.price) {
       cheese -= knife.price;
       knife.quantity++;
+      knife.price++;
+    //   TODO increase price of upgrade
       console.log("Purchased");
       update();
     }
@@ -46,12 +48,15 @@ let clickUpgrades = [
         window.alert("NO CHEESE");
       }
     }
-// const drill = clickUpgrades.find(drill => drill.name === 'drill')
+
 function buyDrill() {
     const drill = clickUpgrades.find(drill => drill.name === 'drill')
     if (cheese >= drill.price) {
       cheese -= drill.price;
       drill.quantity++;
+      drill.price*=2;
+    //   TODO increase price of upgrade
+
       console.log("Purchased");
       update();
     }
@@ -64,6 +69,9 @@ function buyWormhole() {
     if (cheese >= wormhole.price) {
       cheese -= wormhole.price;
       wormhole.quantity++;
+      wormhole.price*=1.5;
+    //   TODO increase price of upgrade
+
       console.log("Purchased");
       update();
     }
@@ -76,6 +84,9 @@ function buyTomcruise() {
     if (cheese >= tomcruise.price) {
       cheese -= tomcruise.price;
       tomcruise.quantity++;
+      tomcruise.price*=1.5;
+    //   TODO increase price of upgrade
+
       console.log("Purchased");
       update();
     }
@@ -83,10 +94,16 @@ function buyTomcruise() {
         window.alert("NO CHEESE");
       }
     }
+// FIXME maybe don't call this when mining
   
 function calculateTotalMultiplier() {
     const totalClickMultiplier = clickUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
+    console.log('click',totalClickMultiplier);
+    // FIXME move auto logic  to its own function
     const totalAutoMultiplier = automaticUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
+    console.log('auto',totalAutoMultiplier);
+
+    // TODO don't add these together, but it would be good to put these variables into your html, make you call this function appropriately
     return totalClickMultiplier + totalAutoMultiplier;
 }
 function applyClickUpgrades() {
@@ -117,10 +134,12 @@ function collectAutoUpgrades() {
 
 
 function mine() {
-    const totalMultiplier = calculateTotalMultiplier();
-    cheese += totalMultiplier;
+    // FIXME try and comment these out and see if your numbers go up correctly
+    // const totalMultiplier = calculateTotalMultiplier();
+    // cheese += totalMultiplier;
     cheese++ ;
     clickCount()
+
     applyClickUpgrades()
     applyDrillUpgrade()
     update()
@@ -130,9 +149,9 @@ clicks++
 // ANCHOR figure out why it starts at 2 clicks
 }
 
-function updateUpgradePrice(upgrade) {
-  upgrade.basePrice += upgrade.basePrice * 0.2; // 20% increase
-}
+// function updateUpgradePrice(upgrade) {
+//   upgrade.basePrice += upgrade.basePrice * 0.2; // 20% increase
+// } function to increase price as you purchase. Need to change the name of price to basePrice in order for this to work, 
 
 function update() {
     const cheeseCountElement = document.getElementById('cheeseCount');
@@ -154,8 +173,8 @@ function update() {
     const tomcruiseCountElement = document.getElementById('tomcruiseCount');
     tomcruiseCountElement.textContent = `${automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise').quantity} tomcruise`;
 
-  }
-  
+}
+
 setInterval(collectAutoUpgrades, 3000);
 clickCount()
 mine()

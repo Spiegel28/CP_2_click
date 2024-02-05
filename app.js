@@ -27,7 +27,7 @@ let clickUpgrades = [
     },
 
     {
-      name: 'tom cruise',
+      name: 'tomcruise',
       price: 1200,
       quantity: 0,
       multiplier: 50
@@ -59,7 +59,36 @@ function buyDrill() {
         window.alert("NO CHEESE");
       }
     }
+function buyWormhole() {
+    const wormhole = automaticUpgrades.find(wormhole => wormhole.name === 'wormhole')
+    if (cheese >= wormhole.price) {
+      cheese -= wormhole.price;
+      wormhole.quantity++;
+      console.log("Purchased");
+      update();
+    }
+      else {
+        window.alert("NO CHEESE");
+      }
+    }
+function buyTomcruise() {
+    const tomcruise = automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise')
+    if (cheese >= tomcruise.price) {
+      cheese -= tomcruise.price;
+      tomcruise.quantity++;
+      console.log("Purchased");
+      update();
+    }
+      else {
+        window.alert("NO CHEESE");
+      }
+    }
   
+function calculateTotalMultiplier() {
+    const totalClickMultiplier = clickUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
+    const totalAutoMultiplier = automaticUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
+    return totalClickMultiplier + totalAutoMultiplier;
+}
 function applyClickUpgrades() {
     const knife = clickUpgrades.find(knife => knife.name === 'knife')
     cheese += knife.quantity * knife.multiplier;
@@ -88,6 +117,8 @@ function collectAutoUpgrades() {
 
 
 function mine() {
+    const totalMultiplier = calculateTotalMultiplier();
+    cheese += totalMultiplier;
     cheese++ ;
     clickCount()
     applyClickUpgrades()
@@ -97,6 +128,10 @@ function mine() {
 function clickCount() {
 clicks++
 // ANCHOR figure out why it starts at 2 clicks
+}
+
+function updateUpgradePrice(upgrade) {
+  upgrade.basePrice += upgrade.basePrice * 0.2; // 20% increase
 }
 
 function update() {
@@ -113,11 +148,11 @@ function update() {
     const drillCountElement = document.getElementById('drillCount');
     drillCountElement.textContent = `${clickUpgrades.find(drill => drill.name === 'drill').quantity} drill`;
 
-    // const wormholeCountElement = document.getElementById('wormholeCount');
-    // wormholeCountElement.textContent = `${automaticUpgrades.find(wormhole => wormhole.name === 'wormhole').quantity} wormhole`;
+    const wormholeCountElement = document.getElementById('wormholeCount');
+    wormholeCountElement.textContent = `${automaticUpgrades.find(wormhole => wormhole.name === 'wormhole').quantity} wormhole`;
 
-    // const tomcruiseCountElement = document.getElementById('tomcruiseCount');
-    // tomcruiseCountElement.textContent = `${automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise').quantity} tomcruise`;
+    const tomcruiseCountElement = document.getElementById('tomcruiseCount');
+    tomcruiseCountElement.textContent = `${automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise').quantity} tomcruise`;
 
   }
   

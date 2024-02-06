@@ -100,12 +100,16 @@ function calculateTotalMultiplier() {
     const totalClickMultiplier = clickUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
     console.log('click',totalClickMultiplier);
     // FIXME move auto logic  to its own function
+}
+
+function calculateAutoMultiplier() {
     const totalAutoMultiplier = automaticUpgrades.reduce((total, upgrade) => total + upgrade.quantity * upgrade.multiplier, 0);
     console.log('auto',totalAutoMultiplier);
 
     // TODO don't add these together, but it would be good to put these variables into your html, make you call this function appropriately
-    return totalClickMultiplier + totalAutoMultiplier;
+    // return totalClickMultiplier + totalAutoMultiplier;
 }
+
 function applyClickUpgrades() {
     const knife = clickUpgrades.find(knife => knife.name === 'knife')
     cheese += knife.quantity * knife.multiplier;
@@ -146,12 +150,9 @@ function mine() {
 } 
 function clickCount() {
 clicks++
-// ANCHOR figure out why it starts at 2 clicks
 }
 
-// function updateUpgradePrice(upgrade) {
-//   upgrade.basePrice += upgrade.basePrice * 0.2; // 20% increase
-// } function to increase price as you purchase. Need to change the name of price to basePrice in order for this to work, 
+
 
 function update() {
     const cheeseCountElement = document.getElementById('cheeseCount');
@@ -159,19 +160,18 @@ function update() {
 
     const clickCountElement = document.getElementById('clickCount');
     clickCountElement.textContent = `${clicks} 👆🏼`;
-    // const knifeCountElement = document.getElementById('knifeCount');
-    // knifeCountElement.textContent = `${clickUpgrades[0].quantity} Knife`;
+    
     const knifeCountElement = document.getElementById('knifeCount');
-    knifeCountElement.textContent = `${clickUpgrades.find(knife => knife.name === 'knife').quantity} knife`;
+    knifeCountElement.textContent = `${clickUpgrades.find(knife => knife.name === 'knife').quantity} Knife Count`;
 
     const drillCountElement = document.getElementById('drillCount');
-    drillCountElement.textContent = `${clickUpgrades.find(drill => drill.name === 'drill').quantity} drill`;
+    drillCountElement.textContent = `${clickUpgrades.find(drill => drill.name === 'drill').quantity} Drill Count`;
 
     const wormholeCountElement = document.getElementById('wormholeCount');
-    wormholeCountElement.textContent = `${automaticUpgrades.find(wormhole => wormhole.name === 'wormhole').quantity} wormhole`;
+    wormholeCountElement.textContent = `${automaticUpgrades.find(wormhole => wormhole.name === 'wormhole').quantity} Wormhole Count`;
 
     const tomcruiseCountElement = document.getElementById('tomcruiseCount');
-    tomcruiseCountElement.textContent = `${automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise').quantity} tomcruise`;
+    tomcruiseCountElement.textContent = `${automaticUpgrades.find(tomcruise => tomcruise.name === 'tomcruise').quantity} Tom Cruise Count`;
 
 }
 
